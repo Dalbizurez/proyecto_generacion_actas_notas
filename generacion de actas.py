@@ -11,7 +11,7 @@ estudiantes = {
 # Funcion para almacenar estudiantes en el diccionario
 def ingresar_est(carnet, nombre, carrrera):
     # Condicion para evitar modificar informacion ya existente
-    if not carnet in estudiantes:
+    if not buscar(carnet):
         estudiantes[carnet] = {NOMBRE:nombre, CARRERA:carrrera, NOTA:0}
         resultado = f"Estudiante {carnet} {nombre} registrado exitosamente en {carrera}"
     else:
@@ -19,6 +19,17 @@ def ingresar_est(carnet, nombre, carrrera):
         resultado = f"Duplicado: Carnet {carnet} ya registrado"
     return resultado
 
+# Funcion para buscar estudiantes
+# Segun el carnet y retorna un valor booleano
+def buscar(carnet):
+    return carnet in estudiantes
+
+# Funcion para actualizar la informacion de un estudiante
+# Segun el carnet
+# Solicita el dato a actualizar y el nuevo valor
+def actualizar(carnet, dato, valor):
+    estudiantes[carnet][dato] = valor
+    return f"Estudiante {carnet} actualizado"
 
 
 # Menu
@@ -41,9 +52,30 @@ while True:
             else:
                 # Mensaje de error
                 resultado = "Por favor no dejar vacios los campos"
-            
-        case "2": 
-            pass
+        case "2":
+            # Se solicita el carnet a buscar
+            carnet = input("Ingrese el carnet a actualizar: ")
+            # Si el carnet se encuentra almacenado se muestran los datos asociados
+            # Sino se despliega un mensaje al usuario
+            if buscar(carnet):
+                print(f"Estudiante {carnet} {estudiantes[carnet][NOMBRE]} en {estudiantes[carnet][CARRERA]} con nota {estudiantes[carnet][NOTA]}")
+
+                # Se le pregunta al usuario si desea cambiar la nota
+                # Cualquier otro valor que no sea el caracter 'S' o 's' se tomara como no
+                if input("Desea cambiar la nota? [S][N] ") == "S":
+                    while True:
+                        try:
+                            valor = float(input("Ingrese la nueva nota: "))
+                        except:
+                            print("Ingrese un numero")
+                        else:
+                            resultado = actualizar(carnet, NOTA, valor)
+                            break
+                else:
+                    resultado = "No se cambiaron datos"
+            else:
+                resultado = "Estudiante no registrado"
+
         case "3":
             pass
         case "4":
