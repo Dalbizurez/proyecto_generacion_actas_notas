@@ -1,4 +1,9 @@
+# Librerias
+import datetime
+
+
 # Constantes que se reuitilizan en el codigo
+CARNET = "carnet"
 NOMBRE = "nombre"
 CARRERA = "carrera"
 NOTA = "nota"
@@ -31,6 +36,35 @@ def actualizar(carnet, dato, valor):
     estudiantes[carnet][dato] = valor
     return f"Estudiante {carnet} actualizado"
 
+# Funcion para escribir los datos almacenados en formato csv
+def exportar():
+    # Crear o sobreescribir el archivo
+    acta = open("acta.csv", "wt")
+    # Agregar el campo fecha
+    acta.write("fecha de acta\n")
+    # Agregar el valor de la fecha de hoy
+    # En formato d-m-y
+    acta.write(f"{datetime.datetime.now().strftime('%d-%m-%y')}")
+    # Agregar las siguientes columnas
+    acta.write("\n\n")
+    acta.write(f"{CARNET}, {NOMBRE}, {CARRERA}, {NOTA}")
+    # Agregar los valores almacenados en el diccionario
+    for est in estudiantes:
+        acta.write(f"\n{est}, {estudiantes[est][NOMBRE]}, {estudiantes[est][CARRERA]}, {estudiantes[est][NOTA]}")
+    # Agregar el promedio de las notas ingresadas
+    acta.write("\n\npromedio\n")
+    # Obtener las notas como un arreglo/lista
+    acta.write(f"{promedio([estudiantes[x][NOTA] for x in estudiantes])}\n")
+    # Cerrar el archivo
+    acta.close()
+
+# Funcion para obtener el promedio de las notas
+def promedio(notas):
+    promedio = 0
+    for nota in notas:
+        promedio += nota
+    promedio /= len(notas)
+    return promedio
 
 # Menu
 print("Bienvenido")
@@ -77,7 +111,8 @@ while True:
                 resultado = "Estudiante no registrado"
 
         case "3":
-            pass
+            exportar()
+            resultado = "Acta generada exitosamente"
         case "4":
             # Salir = True para romper el ciclo
             #salir = True
