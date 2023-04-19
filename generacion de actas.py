@@ -66,6 +66,16 @@ def promedio(notas):
     promedio /= len(notas)
     return promedio
 
+# Funcion para imprimir el diccionario
+def resumen():
+    resultado = ""
+    # Se recorre el diccionario y se concatenan los datos de cada estudiante
+    # Cada estudiante se imprime en una sola linea
+    for est in estudiantes:
+        resultado += f"\n{est} {estudiantes[est][NOMBRE]} {estudiantes[est][CARRERA]} {estudiantes[est][NOTA]}"
+    return resultado
+
+
 # Menu
 print("Bienvenido")
 print("Ingrese el numero correspondiente a la opcion que desea ejecutar")
@@ -109,14 +119,13 @@ while True:
                     resultado = "No se cambiaron datos"
             else:
                 resultado = "Estudiante no registrado"
-
         case "3":
             exportar()
             resultado = "Acta generada exitosamente"
         case "4":
-            # Salir = True para romper el ciclo
-            #salir = True
-            # O podria ser solo un break
+            # Break para cerrrar el ciclo while
+            print("Estudiantes que se trabajaron en esta sesión")
+            print(resumen())
             break
         case _:
             resultado = "Ingrese el numero correspondiente a la opcion que desea"
@@ -124,3 +133,4 @@ while True:
     print(resultado)
     # Pausa para que el usuario vea el resultado
     input()
+print("Feliz dia")
