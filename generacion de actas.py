@@ -80,22 +80,31 @@ def resumen():
 print("Bienvenido")
 print("Ingrese el numero correspondiente a la opcion que desea ejecutar")
 #salir = False
+resultado = ""
 while True:
     # Mostrar el menu con sus opciones
     print("1. Ingresar datos de estudiantes\n2. Ingresar notas de estuiante\n3. Exportar aca de notas\n4. Salir")
     match input("Que desea realizar? "):
         case "1":
-            # Opcion, solicitud de datos para almacenar
-            carnet = input("Ingrese el carnet del estudiante: ")
-            nombre = input("Ingrese el nombre del estudiante: ")
-            carrera = input("Ingrese la carrera del estudiante: ")
-            # Condicion para evitar informacion vacia
-            if carnet and nombre and carrera:
-                # Se imprime el resultado
-                resultado = ingresar_est(carnet, nombre, carrera)
+            # Solicitud de datos para almacenar
+            try:
+                n = int(input("Cuantos estudiantes desea ingresar: "))
+            except:
+                print("Ingrese un valor entero")
             else:
-                # Mensaje de error
-                resultado = "Por favor no dejar vacios los campos"
+                for x in range(n):
+                    carnet = input("Ingrese el carnet del estudiante: ")
+                    nombre = input("Ingrese el nombre del estudiante: ")
+                    carrera = input("Ingrese la carrera del estudiante: ")
+                    print()
+                    # Condicion para evitar informacion vacia
+                    if carnet and nombre and carrera:
+                        # Se imprime el resultado
+                        resultado += "\n"
+                        resultado += ingresar_est(carnet, nombre, carrera)
+                    else:
+                        # Mensaje de error
+                        resultado = "Por favor no dejar vacios los campos"
         case "2":
             # Se solicita el carnet a buscar
             carnet = input("Ingrese el carnet a actualizar: ")
