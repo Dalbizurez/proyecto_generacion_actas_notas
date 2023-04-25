@@ -13,7 +13,7 @@ estudiantes = {
     
 }
 
-# Funcion para almacenar estudiantes en el diccionario
+# Funcion para almacenar estudiantes dentro el diccionario
 def ingresar_est(carnet, nombre, carrrera):
     # Condicion para evitar modificar informacion ya existente
     if not buscar(carnet):
@@ -21,7 +21,7 @@ def ingresar_est(carnet, nombre, carrrera):
         resultado = f"Estudiante {carnet} {nombre} registrado exitosamente en {carrera}"
     else:
     # Mensaje de error
-        resultado = f"Duplicado: Carnet {carnet} ya registrado"
+        resultado = f"Duplicado: {CARNET} {carnet} ya registrado"
     return resultado
 
 # Funcion para buscar estudiantes
@@ -80,11 +80,12 @@ def resumen():
 print("Bienvenido")
 print("Ingrese el numero correspondiente a la opcion que desea ejecutar")
 #salir = False
-resultado = ""
 while True:
+    resultado = ""
     # Mostrar el menu con sus opciones
-    print("1. Ingresar datos de estudiantes\n2. Ingresar notas de estuiante\n3. Exportar aca de notas\n4. Salir")
-    match input("Que desea realizar? "):
+    print("1. Ingresar datos de estudiantes\n2. Ingresar notas de estuiante\n3. Exportar aca de notas\n4. Resumen de estudiantes\n5. Salir")
+    opcion = input("Que desea realizar? ")
+    match opcion:
         case "1":
             # Solicitud de datos para almacenar
             try:
@@ -93,9 +94,9 @@ while True:
                 print("Ingrese un valor entero")
             else:
                 for x in range(n):
-                    carnet = input("Ingrese el carnet del estudiante: ")
-                    nombre = input("Ingrese el nombre del estudiante: ")
-                    carrera = input("Ingrese la carrera del estudiante: ")
+                    carnet = input(f"Ingrese el {CARNET} del estudiante: ")
+                    nombre = input(f"Ingrese el {NOMBRE} del estudiante: ")
+                    carrera = input(f"Ingrese la {CARRERA} del estudiante: ")
                     print()
                     # Condicion para evitar informacion vacia
                     if carnet and nombre and carrera:
@@ -107,15 +108,15 @@ while True:
                         resultado = "Por favor no dejar vacios los campos"
         case "2":
             # Se solicita el carnet a buscar
-            carnet = input("Ingrese el carnet a actualizar: ")
+            carnet = input(f"Ingrese el {CARNET} a actualizar: ")
             # Si el carnet se encuentra almacenado se muestran los datos asociados
             # Sino se despliega un mensaje al usuario
             if buscar(carnet):
-                print(f"Estudiante {carnet} {estudiantes[carnet][NOMBRE]} en {estudiantes[carnet][CARRERA]} con nota {estudiantes[carnet][NOTA]}")
+                print(f"Estudiante {carnet} {estudiantes[carnet][NOMBRE]} en {estudiantes[carnet][CARRERA]} con {NOTA} {estudiantes[carnet][NOTA]}")
 
                 # Se le pregunta al usuario si desea cambiar la nota
                 # Cualquier otro valor que no sea el caracter 'S' o 's' se tomara como no
-                if input("Desea cambiar la nota? [S][N] ") == "S":
+                if input(f"Desea cambiar la {NOTA}? [S][N] ") == "S":
                     while True:
                         try:
                             valor = float(input("Ingrese la nueva nota: "))
@@ -129,13 +130,15 @@ while True:
             else:
                 resultado = "Estudiante no registrado"
         case "3":
+            # Exportacion de acta de notas
             exportar()
             resultado = "Acta generada exitosamente"
-        case "4":
-            # Break para cerrrar el ciclo while
+        case "4" | "5":
             print("Estudiantes que se trabajaron en esta sesión")
+            # Se imprime el resumen de los estudiantes trabajados hasta el momento
             print(resumen())
-            break
+            # Break para cerrrar el ciclo while
+            if opcion == "5": break
         case _:
             resultado = "Ingrese el numero correspondiente a la opcion que desea"
     # Se imprime el resultado de la opcion solicitada
