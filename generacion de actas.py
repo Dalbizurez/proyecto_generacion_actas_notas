@@ -73,7 +73,7 @@ def resumen():
     # Se recorre el diccionario y se concatenan los datos de cada estudiante
     # Cada estudiante se imprime en una sola linea
     for est in estudiantes:
-        resultado += f"\n{est} {estudiantes[est][NOMBRE]} {estudiantes[est][CARRERA]} {estudiantes[est][NOTA]}"
+        resultado += f"\n{CARNET}: {est} {NOTA}: {estudiantes[est][NOMBRE]} {CARRERA}: {estudiantes[est][CARRERA]} {NOTA}: {estudiantes[est][NOTA]}"
     return resultado
 
 
@@ -124,7 +124,7 @@ while True:
                         except:
                             print("Ingrese un numero")
                         else:
-                            resultado = actualizar(carnet, NOTA, valor)
+                            resultado = actualizar(carnet, NOTA, valor) if (valor>0 and valor<=100) else "Nota fuera de rango [0-100]"
                             break
                 else:
                     resultado = "No se cambiaron datos"
