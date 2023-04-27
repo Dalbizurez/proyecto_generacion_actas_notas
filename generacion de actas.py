@@ -61,9 +61,10 @@ def exportar():
 # Funcion para obtener el promedio de las notas
 def promedio(notas):
     promedio = 0
+    cantidad = len(notas)
     for nota in notas:
         promedio += nota
-    promedio /= len(notas)
+    promedio /= cantidad if cantidad != 0 else 1
     return promedio
 
 # Funcion para imprimir el diccionario
@@ -102,7 +103,7 @@ while True:
                     if carnet and nombre and carrera:
                         # Se imprime el resultado
                         resultado += "\n"
-                        resultado += ingresar_est(carnet, nombre, carrera)
+                        resultado += ingresar_est(carnet, nombre.title(), carrera)
                     else:
                         # Mensaje de error
                         resultado = "Por favor no dejar vacios los campos"
