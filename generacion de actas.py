@@ -116,7 +116,7 @@ while True:
 
                 # Se le pregunta al usuario si desea cambiar la nota
                 # Cualquier otro valor que no sea el caracter 'S' o 's' se tomara como no
-                if input(f"Desea cambiar la {NOTA}? [S][N] ") == "S":
+                if input(f"Desea cambiar la {NOTA}? [S][Cualquier otro caracter para cancelar] ") == "S":
                     while True:
                         try:
                             valor = float(input("Ingrese la nueva nota: "))
