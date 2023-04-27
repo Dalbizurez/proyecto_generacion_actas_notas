@@ -47,10 +47,10 @@ def exportar():
     acta.write(f"{datetime.datetime.now().strftime('%d-%m-%y')}")
     # Agregar las siguientes columnas
     acta.write("\n\n")
-    acta.write(f"{CARNET}, {NOMBRE}, {CARRERA}, {NOTA}")
+    acta.write(f"{CARNET},{NOMBRE},{CARRERA},{NOTA}")
     # Agregar los valores almacenados en el diccionario
     for est in estudiantes:
-        acta.write(f"\n{est}, {estudiantes[est][NOMBRE]}, {estudiantes[est][CARRERA]}, {estudiantes[est][NOTA]}")
+        acta.write(f"\n{est},{estudiantes[est][NOMBRE]},{estudiantes[est][CARRERA]},{estudiantes[est][NOTA]}")
     # Agregar el promedio de las notas ingresadas
     acta.write("\n\npromedio\n")
     # Obtener las notas como un arreglo/lista
